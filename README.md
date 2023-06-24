@@ -1,3 +1,5 @@
+![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/fceba52c-48e2-4d75-82fd-f9ca9b91f527)
+
 # Sales Time Series Forecasting using Machine Learning Techniques (Random Forest, XGBoost, and Stacked Ensemble Regressor)
 
 Developed as a course project in Business Analytics: Operational Research and Risk Analysis program at Alliance Manchester Business School.
@@ -6,7 +8,17 @@ Developed as a course project in Business Analytics: Operational Research and Ri
 
 The objective of this project is to build a predictive model to forecast 6 weeks of daily sales for 1,115 drug stores in Europe.
 
-Comprehensive data analysis was initially required to identify how sales are affected at different time periods of the week, month, and year. Based on the trends identified a clustering technique was used splitting the stores into 4 clusters. Five ML models and a stacked model are developed for each cluster, identifying the model that most accurately predicts sales for stores in their respective clusters.
+Key steps of the project:
+1. Exploratory Data Analysis (EDA)
+2. Datetime Objects preprocessing
+3. Time Series K-Means clustering using Dynamic Time Warping (to effectively capture curve similarity across time)
+4. Generic Preprocessing and Feature Engineering
+5. Cluster-specific EDA
+6. Variance Inflation Factor (VIF) Backwards Feature Selection (per cluster)
+7. Development of Naive Models based on historical sales data (day of week, day of month, day of year)
+8. Introduction of historical sales proxy features (Weekly, Monthly based)
+9. Three sets of ML models were developed per cluster (No proxy, weekly proxy, monthly proxy)
+10. Visualizations of sales predictions for randomly selected stores of each cluster
 
 The ML models used are:
 - Linear Regression
@@ -16,6 +28,12 @@ The ML models used are:
 - XGBoost Regressor
 - Ensembled Stacking model using Random Forest and XGBoost as weak learners and Linear Regression ad Meta Learner 
 
+The models built for each cluster were evaluated based on Root Mean Square Percentage Error (RMSPE) and R-squared metrics for the training and validation sets. However, RMSPE was primarily used to measure the performance of each model since R-squared might not be suitable for capturing the goodness of the fit of non-linear relationships.
+
+<p align="center">
+<img src="https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/8fc90b81-53fe-4d2a-9eff-63ad947f22db">
+</p>
+<h6>where N is the total number of data records for accuracy measurement, yi is the actual sales for the ith record, ŷi is the sales forecast for the ith record. Zero sales were excluded from the calculation.</h6>
 
 # Installation and Setup
 
@@ -60,13 +78,6 @@ The clustering analysis resulted in 4 clusters of stores(A, B, C, D), and the fi
 
 ![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/e8fcb1dc-393d-4149-badb-00bf04e2d6b0)
 
-The models built for each cluster were evaluated based on Root Mean Square Percentage Error (RMSPE) and R-squared metrics for the training and validation sets. However, RMSPE was primarily used to measure the performance of each model since R-squared might not be suitable for capturing the goodness of the fit of non-linear relationships.
-
-<p align="center">
-<img src="https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/8fc90b81-53fe-4d2a-9eff-63ad947f22db">
-</p>
-<h6>where N is the total number of data records for accuracy measurement, yi is the actual sales for the ith record, ŷi is the sales forecast for the ith record. Zero sales were excluded from the calculation.</h6>
-
 ## Final Cluster-specific Models 
 
 Initially, a Naive model was developed as a benchmark to test whether the ML methods can provide a more robust forecasting.
@@ -75,7 +86,7 @@ Next, 5 base models (MLR, DT, RF, GB, XGB) were developed and it was observed th
 
 Looking to better improve performance a new feature, sales_proxy (historical sales average for open stores), was introduced within these models. Two different types of models were developed, the Weekly and the Monthly based proxy models, concluding that the Monthly based ones were more powerful, with RF and XGB models outperforming the other ones.
 
-Finally, the Stacking Ensemble method was utilized in order to combine the predictive power of RF and XGB, while also including the Monthly – proxy feature. The results prove that stacking was successful since in most of the clusters the difference between training and validation error decreased, thus reducing overfitting. For the final model selection, RF, XGB and stacking models were compared. As seen in the table below stacking was chosen for clusters A, C and D, while RF was chosen for B.
+Finally, the Stacking Ensemble method was utilized in order to combine the predictive power of RF and XGB, while also including the Monthly – proxy feature. The results prove that stacking was successful since in most of the clusters the difference between training and validation error decreased, thus reducing overfitting. For the final model selection, RF, XGB, and stacking models were compared. As seen in the table below stacking was chosen for clusters A, C, and D, while RF was chosen for B.
 
 ![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/0d0d9fd6-2b7a-41bb-822e-bf35675902c1)
 
@@ -83,4 +94,4 @@ Finally, the Stacking Ensemble method was utilized in order to combine the predi
 ![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/84690039-9a6b-42fc-a7e0-b4f11188c18c)
 ![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/bb31c5eb-b2fb-40d3-993d-751eb5e25f9d)
 
-The two tables above illustrate the permutation feature importance across the different clusters. First, the model illustrates a strong seasonality pattern. The monthly sales proxy successfully captured a significant amount of the monthly patterns and is the most important feature in terms of permutation importance. The day of the week was also a significant indicator in predicting sales. A trend in the historical data was that sales peaked in December, on Mondays and Sundays, and additionally at the beginning, middle, and end of each month. It was also discovered that school holidays impact sales more than state holidays. Other factors that influenced sales were promotions, with individual store promotions (Promo) appearing to be more effective than coupon based mailing campaigns (Promo2). The distance to competitors (CompetitionDistance) also showcased some significance within clusters A and C.
+The two tables above illustrate the permutation feature importance across the different clusters. First, the model illustrates a strong seasonality pattern. The monthly sales proxy successfully captured a significant amount of the monthly patterns and is the most important feature in terms of permutation importance. The day of the week was also a significant indicator in predicting sales. A trend in the historical data was that sales peaked in December, on Mondays and Sundays, and additionally at the beginning, middle, and end of each month. It was also discovered that school holidays impact sales more than state holidays. Other factors that influenced sales were promotions, with individual store promotions (Promo) appearing to be more effective than coupon-based mailing campaigns (Promo2). The distance to competitors (CompetitionDistance) also showcased some significance within clusters A and C.
