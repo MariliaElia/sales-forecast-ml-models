@@ -4,7 +4,7 @@
 
 Developed as a course project in Business Analytics: Operational Research and Risk Analysis program at Alliance Manchester Business School.
 
-The code can be viewed through jupyter nmbviewer via this <a href="https://nbviewer.org/github/MariliaElia/sales-forecast-ml-models/blob/main/sales_forecast_ml_models.ipynb">link</a>.
+The code can be viewed through jupyter nbviewer via this <a href="https://nbviewer.org/github/MariliaElia/sales-forecast-ml-models/blob/main/sales_forecast_ml_models.ipynb">link</a>.
 
 # Project Overview
 
