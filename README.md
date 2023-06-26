@@ -4,6 +4,8 @@
 
 Developed as a course project in Business Analytics: Operational Research and Risk Analysis program at Alliance Manchester Business School.
 
+The code can be viewed through jupyter nmbviewer via this <a href="https://nbviewer.org/github/MariliaElia/sales-forecast-ml-models/blob/main/sales_forecast_ml_models.ipynb">link</a>.
+
 # Project Overview
 
 The objective of this project is to build a predictive model to forecast 6 weeks of daily sales for 1,115 drug stores in Europe.
@@ -26,7 +28,7 @@ The ML models used are:
 - Random Forest Regressor
 - Gradient Boosting Regressor
 - XGBoost Regressor
-- Ensembled Stacking model using Random Forest and XGBoost as weak learners and Linear Regression ad Meta Learner 
+- Ensembled Stacking model using Random Forest and XGBoost as weak learners and Linear Regression ad Meta Learner
 
 The models built for each cluster were evaluated based on Root Mean Square Percentage Error (RMSPE) and R-squared metrics for the training and validation sets. However, RMSPE was primarily used to measure the performance of each model since R-squared might not be suitable for capturing the goodness of the fit of non-linear relationships.
 
@@ -43,7 +45,7 @@ The models built for each cluster were evaluated based on Root Mean Square Perce
 
 ## Python Packages Used
 - **General Purpose:** `statsmodels, scipy, time, math`
-- **Data Manipulation:** `pandas, numpy` 
+- **Data Manipulation:** `pandas, numpy`
 - **Data Visualization:** `seaborn, matplotlib`
 - **Machine Learning:** `scikit-learn, tslearn`
 
@@ -64,7 +66,7 @@ Figure 1
 
 Figure 1 shows the data pre-processing pipeline performed. Data transformation and feature engineering based on the `store_train` data set has been applied across all data sets.
 
-With the pre-processed dataset in hand, clustering was performed to separate the dataset into several clusters for model partitioning. Given the cyclical nature of the sales, Time Series K-Means clustering was employed using Dynamic Time Warping (DTW) as the distance metric to effectively capture curve similarity across time. To remove the effects of differences in the magnitude of sales across stores, the store-specific historical sales data was first transformed by applying *TimeSeriesScalerMeanVariance* to standardize sales on a store-by-store basis, resulting in each store's sales having zero mean and unit variance. 
+With the pre-processed dataset in hand, clustering was performed to separate the dataset into several clusters for model partitioning. Given the cyclical nature of the sales, Time Series K-Means clustering was employed using Dynamic Time Warping (DTW) as the distance metric to effectively capture curve similarity across time. To remove the effects of differences in the magnitude of sales across stores, the store-specific historical sales data was first transformed by applying *TimeSeriesScalerMeanVariance* to standardize sales on a store-by-store basis, resulting in each store's sales having zero mean and unit variance.
 
 Additional cluster-specific EDA was then performed on the clustered dataset, aiding in handling missing values and making data feature engineering decisions on each individual cluster. The final clustered training datasets were checked for multicollinearity using the variance inflation factor index (VIF). Features with the highest VIF were iteratively removed until all features had a value less than five. This resulted in the final training, validation, and testing datasets for each cluster.
 
@@ -74,11 +76,11 @@ Figure 2
 The finalised clustered datasets were then passed for model development, a separate set of models were developed for each cluster as illustrated in Figure 2. Naïve models were first developed as a benchmark for the ML models. The prediction from the naïve models for open stores was either based on the historical weekly average or the monthly average of that specific store, while the prediction for closed stores was 0. Upon retrieving the benchmark results, five selected ML models were developed with and without the `sales_proxy` from the naïve models and further validation was performed. Stacking was then applied on the most robust models to address any potential overfitting issues. To prevent potential data leakage from the `sales_proxy` and one-hot-encoded (day-of-month) variables, validation was exclusively conducted on the validation set, as opposed to adopting a cross-validation approach. Finally, permutation importance method was used to extract the feature importance of the final models and provide business recommendations.
 
 # Results and evaluation
-The clustering analysis resulted in 4 clusters of stores(A, B, C, D), and the final features used for each cluster-specific model, after VIF backward selection are shown below. 
+The clustering analysis resulted in 4 clusters of stores(A, B, C, D), and the final features used for each cluster-specific model, after VIF backward selection are shown below.
 
 ![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/e8fcb1dc-393d-4149-badb-00bf04e2d6b0)
 
-## Final Cluster-specific Models 
+## Final Cluster-specific Models
 
 Initially, a Naive model was developed as a benchmark to test whether the ML methods can provide a more robust forecasting.
 
