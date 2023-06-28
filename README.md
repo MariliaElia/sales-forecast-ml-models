@@ -51,9 +51,11 @@ The models built for each cluster were evaluated based on Root Mean Square Perce
 
 # Data
 - `stores.csv`: contains supplementary information for 1115 stores. (1115 rows, 10 columns)
+
 ![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/5b518906-b704-40a3-aaf5-5c134215c36e)
 
 - `train.csv`: contains the historical sales data, which covers sales from 01/01/2013 to 31/07/2015. (1017209 rows, 9 columns)
+
 ![image](https://github.com/MariliaElia/sales-forecast-ml-models/assets/24305018/d4010000-63d1-4820-9ee4-ad76b7a99340)
 
 - `test.csv`: Identical file to *train.csv*, except that Sales and Customers are unknown for the period of 01/08/2015 to 17/09/2015. (41088 rows, 9 columns)
